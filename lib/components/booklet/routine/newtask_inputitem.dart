@@ -2,14 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:torrid/pages/booklet/routine/global_variable.dart';
-import 'package:torrid/pages/booklet/routine/newTask.dart';
+import 'package:torrid/components/booklet/routine/global_variable.dart';
+import 'package:torrid/components/booklet/routine/new_task.dart';
 
 /// 构建任务输入项（新建样式时的单个任务表单）
-/// [index]：任务序号
-/// [titleCtrl]：任务标题输入控制器
-/// [descCtrl]：任务描述输入控制器
-/// [currentImagePath]：已选择的图片路径
+/// [task]：task对象.
 /// [onDelete]：删除任务回调
 /// [onSelectImage]：选择图片回调
 Widget inputItem({

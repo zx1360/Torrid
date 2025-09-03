@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:torrid/pages/home/menu_button.dart';
+import 'package:torrid/components/home/menu_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,11 +26,12 @@ class _HomePageState extends State<HomePage>
   bool _isMenuOpen = false;
 
   // 菜单按钮数据列表
-  final List<MenuButton> _menuButtons = [
-    MenuButton(name: "积微", icon: Icons.book, route: "booklet"),
-    MenuButton(name: "随笔", icon: Icons.description, route: "essay"),
-    MenuButton(name: "其他", icon: Icons.account_tree_rounded, route: "others"),
-    MenuButton(name: "个人", icon: Icons.person, route: "profile"),
+  final List<ButtonInfo> _buttonInfos = [
+    ButtonInfo(name: "积微", icon: Icons.book, route: "booklet"),
+    ButtonInfo(name: "随笔", icon: Icons.description, route: "essay"),
+    ButtonInfo(name: "其他", icon: Icons.account_tree_rounded, route: "others"),
+    ButtonInfo(name: "个人", icon: Icons.person, route: "profile"),
+    ButtonInfo(name: "帮助", icon: Icons.help, route: "help"),
   ];
 
   @override
@@ -120,7 +121,6 @@ class _HomePageState extends State<HomePage>
             child: Container(
               width: menuWidth,
               height: size.height,
-              // color: Colors.white,
               // 添加柔和阴影增强层次感
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -169,50 +169,17 @@ class _HomePageState extends State<HomePage>
                     Expanded(
                       child: ListView.builder(
                         padding: EdgeInsets.zero,
-                        itemCount: _menuButtons.length,
+                        itemCount: _buttonInfos.length-1,
                         itemBuilder: (context, index) {
-                          final button = _menuButtons[index];
-                          return Material(
-                            color: Colors.transparent, // 确保背景透明
-                            child: InkWell(
-                              // 点击反馈区域扩展到整行
-                              onTap: () => _navigateTo(button.route),
-                              // 自定义点击水波纹颜色
-                              splashColor: Colors.grey[200],
-                              // 点击高亮颜色
-                              highlightColor: Colors.grey[100],
-                              // 圆角水波纹
-                              borderRadius: BorderRadius.circular(8),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                ),
-                                height: 56, // 固定高度确保一致的点击区域
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      button.icon,
-                                      color: const Color(0xFF495057),
-                                      size: 24,
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ), // 替代horizontalTitleGap
-                                    Text(
-                                      button.name,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Color(0xFF333333),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
+                          final button = _buttonInfos[index];
+                          return MenuButton(info: button, func: _navigateTo);
                         },
                       ),
                     ),
+
+                    // 底部Helper选项, 点击查看说明
+                    MenuButton(info: _buttonInfos.last, func: _navigateTo),
+                    const SizedBox(height: 60),
                   ],
                 ),
               ),

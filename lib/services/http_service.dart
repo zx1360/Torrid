@@ -3,8 +3,10 @@ import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ImageUploader {
-  // 上传图片列表到服务器
-  static Future<void> uploadImages(List<String> relativePaths) async {
+  /// 将本地图片上传到指定url
+  /// [relativePaths] 本地图片url列表
+  /// [url] 目标网络地址
+  static Future<void> uploadImages(List<String> relativePaths, String url) async {
     // 用于跟踪上次显示的进度百分比
     int lastReportedProgress = -1;
     try {
@@ -44,7 +46,7 @@ class ImageUploader {
       
       // 发送POST请求
       final response = await dio.post(
-        "http://192.168.5.114:4215/update/booklet_imgs",
+        url,
         data: formData,
         options: Options(
           contentType: Headers.multipartFormDataContentType,
@@ -74,4 +76,7 @@ class ImageUploader {
       rethrow;
     }
   }
+
+
+  
 }
