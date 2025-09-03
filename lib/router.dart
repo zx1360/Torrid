@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:torrid/pages/help/help_page.dart';
 
 import 'package:torrid/pages/home/home_page.dart';
 
@@ -55,6 +56,13 @@ final GoRouter router = GoRouter(
       name: "profile",
       builder: (context, state) => ProfilePage(),
     ),
+
+    // 应用帮助页
+    GoRoute(
+      path: "/help",
+      name: "help",
+      builder: (context, state) => HelpPage(),
+    )
   ],
 
   // #### 页面不存在

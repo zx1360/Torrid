@@ -24,6 +24,8 @@ class HiveService {
     await Directory(essayImgDir).create(recursive: true);
   }
 
+
+
   // # 同步数据, 从pc请求数据覆盖本地.
   // 同步booklet数据
   static Future<void> syncBooklet() async {
@@ -51,6 +53,8 @@ class HiveService {
     }
   }
 
+
+
   // # 更新数据, 本地数据上传到PC.
   static Future<void> updateBooklet() async {
     try {
@@ -65,4 +69,9 @@ class HiveService {
       throw Exception("同步booklet数据出错.\n");
     }
   }
+
+  // 更新essay数据
+  static Future<void> updateEssay()async{}
+
+  
 }

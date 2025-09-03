@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:torrid/components/common/get_local_image.dart';
+import 'package:torrid/services/io_service.dart';
 
 class TaskWidget extends StatelessWidget {
   const TaskWidget({
@@ -35,7 +35,7 @@ class TaskWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: FutureBuilder<File?>(
-              future: getImageFile(imgUrl),
+              future: IoService.getImageFile(imgUrl),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {

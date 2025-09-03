@@ -6,10 +6,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:torrid/pages/booklet/routine/newTask.dart';
-import 'package:torrid/pages/booklet/routine/new_style_widget.dart';
-import 'package:torrid/pages/booklet/routine/global_variable.dart';
-import 'package:torrid/pages/booklet/routine/overview_widget.dart';
+import 'package:torrid/components/booklet/routine/new_task.dart';
+import 'package:torrid/components/booklet/routine/newtask_inputitem.dart';
+import 'package:torrid/components/booklet/routine/global_variable.dart';
+import 'package:torrid/components/booklet/routine/overview_widgets.dart';
 
 // 工具类
 import 'package:torrid/util/util.dart';

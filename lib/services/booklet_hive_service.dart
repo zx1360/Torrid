@@ -11,6 +11,7 @@ import 'package:torrid/models/booklet/record.dart';
 import 'package:torrid/models/booklet/style.dart';
 import 'package:torrid/models/booklet/task.dart';
 import 'package:torrid/services/http_service.dart';
+import 'package:torrid/services/io_service.dart';
 import 'package:torrid/util/util.dart';
 
 class BookletHiveService {
@@ -214,7 +215,7 @@ class BookletHiveService {
     String relativePath,
   ) async {
     try {
-      await clearSpecificDirectory("img_storage");
+      await IoService.clearSpecificDirectory("img_storage");
       // 获取应用的外部私有存储目录
       // 对于Android，这是位于外部存储的Android/data/[包名]/files/目录
       final externalDir = await getExternalStorageDirectory();
@@ -258,48 +259,6 @@ class BookletHiveService {
     }
   }
 
-  // 清除外部私有空间中的指定目录
-  static Future<void> clearSpecificDirectory(String relativePath) async {
-    try {
-      // 获取应用外部私有存储根目录
-      final externalDir = await getExternalStorageDirectory();
-      if (externalDir == null) {
-        throw Exception("无法获取应用外部私有存储目录");
-      }
-
-      // 构建目标目录的完整路径
-      final targetDir = Directory(path.join(externalDir.path, relativePath));
-
-      // 检查目录是否存在
-      if (await targetDir.exists()) {
-        // 递归删除该目录及其所有内容
-        await targetDir.delete(recursive: true);
-        print("已清除指定目录: ${targetDir.path}");
-      } else {
-        print("指定目录不存在: ${targetDir.path}");
-      }
-    } catch (e) {
-      throw Exception("清除指定目录失败: $e");
-    }
-  }
-
-  // 辅助方法：删除目录下的所有内容但保留目录本身
-  static Future<void> _deleteDirectoryContents(Directory dir) async {
-    if (!await dir.exists()) return;
-
-    // 遍历目录中的所有内容
-    await for (final entity in dir.list()) {
-      if (entity is File) {
-        // 删除文件
-        await entity.delete();
-        print("已删除文件: ${entity.path}");
-      } else if (entity is Directory) {
-        // 递归删除子目录
-        await entity.delete(recursive: true);
-        print("已删除目录: ${entity.path}");
-      }
-    }
-  }
 
   // # 根据传入的数据覆盖本地的booklet存储数据.
   static Future<void> syncData(dynamic json) async {
@@ -385,7 +344,7 @@ class BookletHiveService {
           });
     });
 
-    ImageUploader.uploadImages(urls).catchError((error) {
+    ImageUploader.uploadImages(urls, "http://192.168.5.114:4215/update/booklet_imgs").catchError((error) {
       print("上传出错.");
     });
   }

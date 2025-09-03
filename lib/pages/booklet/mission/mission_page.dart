@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:torrid/components/booklet/mission_widget.dart';
-import 'package:torrid/__tmp/example.dart';
+import 'package:torrid/components/booklet/mission/mission_widget.dart';
 
 class MissionPage extends StatefulWidget {
   const MissionPage({super.key});
@@ -11,13 +10,13 @@ class MissionPage extends StatefulWidget {
 }
 
 class _MissionPageState extends State<MissionPage> {
-  final List<MissionWidget> missions = generateMissionExamples();
+  // final List<MissionWidget> missions = ...;
   final timeFormat = DateFormat('yyyy-MM-dd HH:mm');
   final dateFormat = DateFormat('yyyy-MM-dd');
 
   // 消息详情底部弹窗 - 增强版
   Widget _buildMessageBottomSheet(BuildContext context, MissionWidget mission) {
-    // 获取状态信息   诶哟这个写法挺酷的.
+    // 获取状态信息   诶哟这个写法
     final Map<String, dynamic> statusInfo = [
       {'color': Colors.yellow.shade600, 'text': '进行中'},
       {'color': Colors.green.shade600, 'text': '已完成'},

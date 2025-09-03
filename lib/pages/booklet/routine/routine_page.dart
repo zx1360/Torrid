@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:torrid/components/booklet/topbar/topbar.dart';
-import 'package:torrid/components/booklet/task_widget.dart';
-import 'package:torrid/components/common/get_local_image.dart';
+import 'package:torrid/components/booklet/routine/task_widget.dart';
 
 import 'package:torrid/models/booklet/style.dart';
 import 'package:torrid/models/booklet/task.dart';
@@ -12,6 +11,7 @@ import 'package:torrid/models/booklet/record.dart';
 
 import 'package:torrid/services/booklet_hive_service.dart';
 import 'package:torrid/services/hive_service.dart';
+import 'package:torrid/services/io_service.dart';
 
 class RoutinePage extends StatefulWidget {
   const RoutinePage({super.key});
@@ -148,7 +148,7 @@ class _RoutinePageState extends State<RoutinePage> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: FutureBuilder<File?>(
-                                future: getImageFile(task.image),
+                                future: IoService.getImageFile(task.image),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.done) {

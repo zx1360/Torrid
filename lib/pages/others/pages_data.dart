@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:torrid/pages/others/page_item.dart';
+import 'package:torrid/pages/others/entry_button.dart';
 
 import 'package:torrid/pages/others/news/news_page.dart';
 import 'package:torrid/pages/others/realm/realm_page.dart';

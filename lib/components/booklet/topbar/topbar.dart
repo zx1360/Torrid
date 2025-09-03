@@ -9,6 +9,9 @@ class Topbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 判断stats是否为空
+    final bool isStatsEmpty = stats.isEmpty;
+
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
@@ -23,26 +26,38 @@ class Topbar extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          StatItem(
-            label: "累计打卡",
-            value: "${stats["validCheckIn"]}天",
-            icon: Icons.calendar_today,
-          ),
-          StatItem(
-            label: "全通天数",
-            value: "${stats["fullyDone"]}天",
-            icon: Icons.star,
-          ),
-          StatItem(
-            label: "最长连续",
-            value: "${stats["longestStreak"]}天",
-            icon: Icons.fireplace,
-          ),
-        ],
-      ),
+      // 根据stats是否为空显示不同内容
+      child: isStatsEmpty
+          ? Center(
+              child: Text(
+                "点击以新建样式",
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 21,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                StatItem(
+                  label: "累计打卡",
+                  value: "${stats["validCheckIn"]}天",
+                  icon: Icons.calendar_today,
+                ),
+                StatItem(
+                  label: "全通天数",
+                  value: "${stats["fullyDone"]}天",
+                  icon: Icons.star,
+                ),
+                StatItem(
+                  label: "最长连续",
+                  value: "${stats["longestStreak"]}天",
+                  icon: Icons.fireplace,
+                ),
+              ],
+            ),
     );
   }
 }
