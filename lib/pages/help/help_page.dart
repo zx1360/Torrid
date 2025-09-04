@@ -48,7 +48,6 @@ class _HelpPageState extends State<HelpPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("关于本应用"),
-        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: _buildBody(),
     );

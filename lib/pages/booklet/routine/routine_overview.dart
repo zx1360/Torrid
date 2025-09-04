@@ -435,6 +435,7 @@ class _RoutineOverviewPageState extends State<RoutineOverviewPage> {
       (r) => Util.isSameDay(r.date, date),
       orElse: () => Record.empty(styleId: _currentStyle!.id),
     );
+    print(targetRecord.toJson());
 
     showDialog(
       context: context,
@@ -699,7 +700,9 @@ class _RoutineOverviewPageState extends State<RoutineOverviewPage> {
                         vertical: 10,
                       ),
                     ),
-                    child: Text('开始新样式', style: noteSmall),
+                    child: Text('开始新样式', style: TextStyle(
+                      color: Colors.amber
+                    )),
                   ),
                 ],
               ),

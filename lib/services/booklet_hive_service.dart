@@ -306,8 +306,9 @@ class BookletHiveService {
               urls.add("http://192.168.5.114:4215/${task.image}");
             });
       });
-      if (urls.isNotEmpty)
+      if (urls.isNotEmpty) {
         await saveFromUrls(urls, "img_storage/booklet/JJ.BB");
+      }
     } catch (e) {
       throw Exception("Booklet同步出错咯 $e");
     }

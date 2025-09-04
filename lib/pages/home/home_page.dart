@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:torrid/app_theme.dart';
 import 'package:torrid/components/home/menu_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   // 随机获取一张图片作为大屏壁纸
-  final randomIndex = (Random().nextInt(9) + 1).toString();
+  final randomIndex = (Random().nextInt(6) + 1).toString();
 
   // 动画控制器，用于管理菜单滑入滑出动画
   late AnimationController _controller;
@@ -29,9 +30,9 @@ class _HomePageState extends State<HomePage>
   final List<ButtonInfo> _buttonInfos = [
     ButtonInfo(name: "积微", icon: Icons.book, route: "booklet"),
     ButtonInfo(name: "随笔", icon: Icons.description, route: "essay"),
+    ButtonInfo(name: "早报", icon: Icons.newspaper, route: "news"),
     ButtonInfo(name: "其他", icon: Icons.account_tree_rounded, route: "others"),
     ButtonInfo(name: "个人", icon: Icons.person, route: "profile"),
-    ButtonInfo(name: "帮助", icon: Icons.help, route: "help"),
   ];
 
   @override
@@ -121,64 +122,91 @@ class _HomePageState extends State<HomePage>
             child: Container(
               width: menuWidth,
               height: size.height,
-              // 添加柔和阴影增强层次感
-              decoration: const BoxDecoration(
-                image: DecorationImage(
+              decoration: BoxDecoration(
+                image: const DecorationImage(
                   image: AssetImage("assets/images/soldier.png"),
                   fit: BoxFit.cover,
-                  opacity: 0.15
+                  opacity: 0.28,
                 ),
-                color: Colors.white,
+                color: AppTheme.lightCardColor,
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0x1A000000), // 淡黑色半透明0x1A000000
-                    blurRadius: 12,
-                    spreadRadius: 0,
-                    offset: Offset(4, 0), // 右侧阴影
+                    color: Colors.black.withOpacity(0.12),
+                    blurRadius: 14,
+                    spreadRadius: 1,
+                    offset: const Offset(4, 0),
                   ),
                 ],
               ),
-              // 使用AbsorbPointer替代空onTap，更高效地阻止事件传递
               child: AbsorbPointer(
-                absorbing: false, // 允许子组件接收事件
+                absorbing: false,
                 child: Column(
                   children: [
-                    // 菜单标题区域
                     const SizedBox(height: 60),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 8,
+                      ),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "那么, 你需要的是什么.",
+                          "理想如星\n虽不能及,吾心往之",
                           style: TextStyle(
+                            fontFamily: "kaiti",
                             fontSize: 22,
-                            fontWeight: FontWeight.w600, // 使用w600替代bold，更精确
-                            color: Color(0xFF333333),
+                            fontWeight: FontWeight.w600,
+                            color: AppTheme.primaryColorDark,
+                            letterSpacing: 0.8,
                           ),
                         ),
                       ),
                     ),
-                    const Divider(
+                    Divider(
                       height: 30,
-                      thickness: 1,
-                      color: Color(0xFFf1f3f5),
+                      thickness: 1.2,
+                      color: AppTheme.primaryColorLight.withOpacity(0.4),
+                      indent: 20,
+                      endIndent: 20,
                     ),
-
-                    // 菜单列表
                     Expanded(
                       child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: _buttonInfos.length-1,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        itemCount: _buttonInfos.length - 1,
                         itemBuilder: (context, index) {
                           final button = _buttonInfos[index];
-                          return MenuButton(info: button, func: _navigateTo);
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 3),
+                            child: MenuButton(
+                              info: button,
+                              func: _navigateTo,
+                              textColor: AppTheme.darkTextColor,
+                              highlightColor: AppTheme.primaryColorLight
+                                  .withOpacity(0.3),
+                            ),
+                          );
                         },
                       ),
                     ),
-
-                    // 底部Helper选项, 点击查看说明
-                    MenuButton(info: _buttonInfos.last, func: _navigateTo),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: AppTheme.lightSurfaceColor.withOpacity(0.3),
+                        ),
+                        child: MenuButton(
+                          info: _buttonInfos.last,
+                          func: _navigateTo,
+                          textColor: AppTheme.primaryColorDark,
+                          highlightColor: AppTheme.primaryColorLight
+                              .withOpacity(0.25),
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 60),
                   ],
                 ),

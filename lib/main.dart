@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:torrid/app_theme.dart';
 import 'package:torrid/router.dart';
 
 import 'package:torrid/services/hive_service.dart';
@@ -25,9 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: "torrid",
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
-      ),
+      theme: AppTheme.lightTheme(),
 
       // 关联路由配置
       routerDelegate: router.routerDelegate,

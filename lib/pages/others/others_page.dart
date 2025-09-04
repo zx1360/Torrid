@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:torrid/pages/others/entry_button.dart';
+import 'package:torrid/components/others/entry_button.dart';
 
-import 'package:torrid/pages/others/pages_data.dart';
+import 'package:torrid/components/others/pages_data.dart';
 
-// TODO: 只做了样式, 还要做类别划分(输入, 内化, 输出...或其他分类)
+// TODO: 只做了样式, 还要做类别划分
 class OthersPage extends StatelessWidget {
   const OthersPage({super.key});
 
