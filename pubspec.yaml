@@ -66,8 +66,17 @@ flutter:
     - assets/files/
     # - assets/videos/
     # - assets/icons
-  # fonts:
-  #   - family: MyIconFont
-  #     fonts:
-  #       - asset: assets/fonts/iconfont.ttf
+  fonts:
+    # 楷体
+    - family: kaiti
+      fonts:
+        - asset: assets/fonts/kaiti.ttf
+    # 新宋
+    - family: xinsong
+      fonts:
+        - asset: assets/fonts/xinsong.ttc
+    # 仿宋
+    - family: fangsong
+      fonts:
+        - asset: assets/fonts/fangsong.ttf
 

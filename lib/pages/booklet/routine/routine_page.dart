@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:torrid/components/booklet/topbar/topbar.dart';
 import 'package:torrid/components/booklet/routine/task_widget.dart';
 
 import 'package:torrid/models/booklet/style.dart';
 import 'package:torrid/models/booklet/task.dart';
 import 'package:torrid/models/booklet/record.dart';
+import 'package:torrid/pages/booklet/overview_page.dart';
 
 import 'package:torrid/services/booklet_hive_service.dart';
 import 'package:torrid/services/hive_service.dart';
@@ -225,7 +225,10 @@ class _RoutinePageState extends State<RoutinePage> {
                 // 统计信息卡片, 点击可以查看总览/本地同步于PC/更新PC进度.
                 GestureDetector(
                   onTap: () async {
-                    await context.pushNamed("booklet_overview");
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OverviewPage()),
+                    );
                     readFromHive();
                   },
                   child: Topbar(stats: _stats),
