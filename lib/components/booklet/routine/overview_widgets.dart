@@ -6,7 +6,7 @@ import 'package:torrid/services/booklet_hive_service.dart';
 /// 构建Style下拉选择框（支持滚动，按创建时间倒序）
 /// [currentStyle]：当前选中的样式
 /// [onStyleChanged]：样式切换回调
-Widget buildStyleDropdown(Style? currentStyle, Function(Style?)? onStyleChanged) {
+Widget buildStyleDropdown(Style? currentStyle, Function(String?)? onStyleChanged) {
   final allStyles = BookletHiveService.getAllStyles()
       .toList()
         ..sort((a, b) => b.startDate.compareTo(a.startDate)); // 按开始日期降序
@@ -17,12 +17,12 @@ Widget buildStyleDropdown(Style? currentStyle, Function(Style?)? onStyleChanged)
 
   return LimitedBox(
     maxHeight: dropdownMaxHeight,
-    child: DropdownButtonFormField<Style>(
-      value: currentStyle ?? allStyles.first,
+    child: DropdownButtonFormField<String>(
+      value: currentStyle!.id,
       items: allStyles.map((style) {
         final startDateStr = fullDateFormatter.format(style.startDate).split(' ')[0];
-        return DropdownMenuItem<Style>(
-          value: style,
+        return DropdownMenuItem<String>(
+          value: style.id,
           child: Text(
             '$startDateStr 打卡计划',
             style: noteText,

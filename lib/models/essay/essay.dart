@@ -13,21 +13,18 @@ class Essay {
   final DateTime date;
 
   @HiveField(2)
-  final int isPublic;
-
-  @HiveField(3)
   final int wordCount;
 
-  @HiveField(4)
+  @HiveField(3)
   final String content;
 
-  @HiveField(5)
+  @HiveField(4)
   final List<String> imgs;
 
-  @HiveField(6)
+  @HiveField(5)
   final List<String> labels;
 
-  @HiveField(7)
+  @HiveField(6)
   final List<Message> messages;
 
   // TODO: 对以前的日记的留言, 也许像链表一样再接上另一个Essay实例?
@@ -35,7 +32,6 @@ class Essay {
   Essay({
     required this.id,
     required this.date,
-    required this.isPublic,
     required this.wordCount,
     required this.content,
     required this.imgs,
@@ -43,30 +39,50 @@ class Essay {
     this.messages = const [],
   });
 
+  // Essay copyWith({
+  //   String? id,
+  //   DateTime? date,
+  //   int? wordCount,
+  //   String? content,
+  //   List<String>? imgs,
+  //   List<String>? labels,
+  //   List<Message>? messages,
+  // }) {
+  //   return Essay(
+  //     id: id ?? this.id,
+  //     date: date ?? this.date,
+  //     wordCount: wordCount ?? this.wordCount,
+  //     content: content ?? this.content,
+  //     imgs: imgs ?? this.imgs,
+  //     labels: labels ?? this.labels,
+  //     messages: messages ?? this.messages,
+  //   );
+  // }
+
   factory Essay.fromJson(Map<String, dynamic> json) {
     return Essay(
       id: Util.generateId(),
-      date: json['create_time'],
-      isPublic: json['is_public'],
+      date: DateTime.parse(json['date']),
       wordCount: json['wordCount'],
       content: json['content'],
-      imgs: json['imgs'],
-      labels: json['labels'],
-      messages: (json['messages'] as List)
-          .map((item) => Message.fromJson(item))
-          .toList(),
+      imgs: List<String>.from(json['imgs']),
+      labels: List<String>.from(json['labels']),
+      messages: json['messages'] != null
+          ? (json['messages'] as List)
+                .map((item) => Message.fromJson(item))
+                .toList()
+          : [],
     );
   }
   Map<String, dynamic> toJson() {
     return {
       "id": id,
-      "date": date..toLocal().toString().split('.').first,
-      "isPublic": isPublic,
+      "date": date.toLocal().toString().split('.').first,
       "wordCount": wordCount,
       "content": content,
       "imgs": imgs,
       "labels": labels,
-      "messages": messages.map((item)=>item.toJson()).toList(),
+      "messages": messages.map((item) => item.toJson()).toList(),
     };
   }
 

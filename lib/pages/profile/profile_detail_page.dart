@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class ProfileDetailPage extends StatelessWidget {
-  const ProfileDetailPage({super.key});
+  final String title;
+  final Widget child;
+  const ProfileDetailPage({super.key, required this.title, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("个人详细页"),
+        title: Text(title),
       ),
-      body: GoRouter.of(context).routerDelegate.build(context)
+      body: child,
     );
   }
 }

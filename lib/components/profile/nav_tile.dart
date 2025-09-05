@@ -24,7 +24,10 @@ class NavTile extends StatelessWidget {
           size: 18,
           color: Colors.grey,
         ),
-        onTap: () => context.pushNamed(info.childRouteName),
+        onTap: () => context.pushNamed(
+          info.childRouteName,
+          extra: {"title": info.title},
+        ),
         minLeadingWidth: 24,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
       ),

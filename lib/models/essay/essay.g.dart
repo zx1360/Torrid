@@ -19,34 +19,31 @@ class EssayAdapter extends TypeAdapter<Essay> {
     return Essay(
       id: fields[0] as String,
       date: fields[1] as DateTime,
-      isPublic: fields[2] as int,
-      wordCount: fields[3] as int,
-      content: fields[4] as String,
-      imgs: (fields[5] as List).cast<String>(),
-      labels: (fields[6] as List).cast<String>(),
-      messages: (fields[7] as List).cast<Message>(),
+      wordCount: fields[2] as int,
+      content: fields[3] as String,
+      imgs: (fields[4] as List).cast<String>(),
+      labels: (fields[5] as List).cast<String>(),
+      messages: (fields[6] as List).cast<Message>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Essay obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.date)
       ..writeByte(2)
-      ..write(obj.isPublic)
-      ..writeByte(3)
       ..write(obj.wordCount)
-      ..writeByte(4)
+      ..writeByte(3)
       ..write(obj.content)
-      ..writeByte(5)
+      ..writeByte(4)
       ..write(obj.imgs)
-      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.labels)
-      ..writeByte(7)
+      ..writeByte(6)
       ..write(obj.messages);
   }
 

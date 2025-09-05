@@ -14,10 +14,14 @@ class Label {
   @HiveField(2)
   final int essayCount;
 
-  Label({required this.id,required this.name, required this.essayCount});
+  Label({required this.id, required this.name, required this.essayCount});
 
   factory Label.fromJson(Map<String, dynamic> json) {
-    return Label(id: Util.generateId(), name: json['name'], essayCount: json['essayCount']);
+    return Label(
+      id: Util.generateId(),
+      name: json['name'],
+      essayCount: json['essayCount'],
+    );
   }
 
   Map<String, dynamic> toJson() {

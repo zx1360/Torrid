@@ -4,12 +4,13 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:torrid/models/booklet/style.dart';
+import 'package:torrid/models/booklet/task.dart';
+import 'package:torrid/models/booklet/record.dart';
+
 import 'package:http/http.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:torrid/models/booklet/record.dart';
-import 'package:torrid/models/booklet/style.dart';
-import 'package:torrid/models/booklet/task.dart';
 import 'package:torrid/services/http_service.dart';
 import 'package:torrid/services/io_service.dart';
 import 'package:torrid/util/util.dart';
@@ -104,6 +105,11 @@ class BookletHiveService {
     }
   }
 
+  // 8. 根据styleId获取style
+  static Style? getStyleById(String id){
+    return _styleBox.get(id);
+  }
+  
   // ####### 全部style刷新信息;
   static Future<void> refreshAll() async {
     final allStyles = _styleBox.values.toList();
