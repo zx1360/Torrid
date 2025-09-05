@@ -28,7 +28,7 @@ class YearSummary {
     return YearSummary(
       year: json['year'],
       essayCount: json['essayCount'],
-      wordCount: json['totalWordCount'],
+      wordCount: json['wordCount'],
       monthSummaries: json.containsKey('monthSummaries')
           ? (json['monthSummaries'] as List)
                 .map((item) => MonthSummary.fromJson(item))

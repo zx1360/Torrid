@@ -20,8 +20,8 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _notificationsEnabled = true;
 
   // 模拟用户信息
-  final String _username = "昵称: 超级小马";
-  final String _email = "签名: 一觉醒来天降活泼可爱假小子青梅";
+  final String _username = "昵称: 谁才是超级小马";
+  final String _email = "签名: 我将如闪电般归来.";
 
 
   @override
@@ -87,7 +87,9 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         onTap: () {
           // 跳转到个人资料页面
-          context.pushNamed("profile_user");
+          context.pushNamed("profile_user", extra: {
+            "title": "个人信息"
+          });
         },
       ),
     );
@@ -221,19 +223,6 @@ class _ProfilePageState extends State<ProfilePage> {
         onTap: onTap,
         minLeadingWidth: 24,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-      ),
-    );
-  }
-
-  // 导航到其他页面
-  void _navigateToPage(String pageName) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Scaffold(
-          appBar: AppBar(title: Text(pageName)),
-          body: Center(child: Text('$pageName 页面内容')),
-        ),
       ),
     );
   }

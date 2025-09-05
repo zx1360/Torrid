@@ -51,11 +51,11 @@ class _RoutineOverviewPageState extends State<RoutineOverviewPage> {
 
   /// 切换选中的样式（下拉框回调）
   /// [newStyle]：新选中的样式
-  void _onStyleChanged(Style? newStyle) {
-    if (newStyle != null && newStyle.id != _currentStyle?.id) {
+  void _onStyleChanged(String? newStyleId) {
+    if (newStyleId != _currentStyle?.id) {
       setState(() {
-        _currentStyle = newStyle;
-        _relatedRecords = BookletHiveService.getRecordsByStyleId(newStyle.id);
+        _currentStyle = BookletHiveService.getStyleById(newStyleId!);
+        _relatedRecords = BookletHiveService.getRecordsByStyleId(newStyleId);
       });
     }
   }

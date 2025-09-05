@@ -12,13 +12,13 @@ class OtherPagesData {
     // 笔记页.
     PageItem(
       label: "笔记",
-      icon: Icons.assessment,
+      icon: Icons.note_alt_sharp,
       builder: (context) => NotesPage(),
     ),
     // 幻想页
     PageItem(
-      label: "幻想",
-      icon: Icons.assessment,
+      label: "主意",
+      icon: Icons.wb_incandescent_sharp,
       builder: (context) => IdeasPage(),
     ),
     

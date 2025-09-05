@@ -7,6 +7,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
 import 'package:torrid/services/booklet_hive_service.dart';
+import 'package:torrid/services/essay_hive_service.dart';
 
 class HiveService {
   static Future<void> init() async {
@@ -46,10 +47,9 @@ class HiveService {
       final response = await get(
         Uri.parse("http://192.168.5.114:4215/sync/essay"),
       );
-      // await EssayHiveService....
-      print(response.body);
+      await EssayHiveService.syncData(jsonDecode(response.body));
     } catch (err) {
-      throw Exception("同步essay数据出错.");
+      throw Exception("同步essay数据出错.$err\n");
     }
   }
 
@@ -59,14 +59,14 @@ class HiveService {
   static Future<void> updateBooklet() async {
     try {
       final packedData = BookletHiveService.packUp();
-      final response = await post(
+      await post(
         Uri.parse("http://192.168.5.114:4215/update/booklet"),
         headers: {"Content-Type": "application/json"},
         body: packedData,
       );
       await BookletHiveService.uploadImgs();
     } catch (err) {
-      throw Exception("同步booklet数据出错.\n");
+      throw Exception("同步booklet数据出错.\n$err");
     }
   }
 

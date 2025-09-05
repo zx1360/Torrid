@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 class IoService {
   // 删除目录下的所有内容但保留目录本身
-  static Future<void> deleteDirectoryContents(Directory dir)async{
+  static Future<void> deleteDirectoryContents(Directory dir) async {
     if (!await dir.exists()) return;
 
     // 遍历目录中的所有内容
@@ -48,23 +48,26 @@ class IoService {
     }
   }
 
+  // 读取外部私有空间的图片文件
   static Future<File?> getImageFile(String imgUrl) async {
-  try {
-    final externalDir = await getExternalStorageDirectory();
-    if (externalDir == null) {
-      throw Exception("无法获取应用外部私有存储目录");
+    try {
+      final externalDir = await getExternalStorageDirectory();
+      if (externalDir == null) {
+        throw Exception("无法获取应用外部私有存储目录");
+      }
+      final pureUrl = imgUrl.startsWith("/")
+          ? imgUrl.replaceFirst("/", "")
+          : imgUrl;
+      final filePath = '${externalDir.path}/$pureUrl';
+      // print(filePath);
+      final file = File(filePath);
+      // print(file.exists());
+      return await file.exists() ? file : null;
+    } catch (e) {
+      debugPrint('图片路径处理错误: $e');
+      return null;
     }
-    final pureUrl = imgUrl.startsWith("/")
-        ? imgUrl.replaceFirst("/", "")
-        : imgUrl;
-    final filePath = '${externalDir.path}/$pureUrl';
-    // print(filePath);
-    final file = File(filePath);
-    // print(file.exists());
-    return await file.exists() ? file : null;
-  } catch (e) {
-    debugPrint('图片路径处理错误: $e');
-    return null;
   }
-}
+
+  // 
 }

@@ -7,14 +7,15 @@ import 'package:torrid/pages/booklet/booklet_page.dart';
 import 'package:torrid/pages/essay/essay_page.dart';
 import 'package:torrid/pages/news/news_page.dart';
 import 'package:torrid/pages/others/others_page.dart';
-import 'package:torrid/pages/profile/detail_page/profile_user.dart';
-import 'package:torrid/pages/profile/detail_page/profile_abount.dart';
-import 'package:torrid/pages/profile/detail_page/profile_account.dart';
-import 'package:torrid/pages/profile/detail_page/profile_data.dart';
-import 'package:torrid/pages/profile/detail_page/profile_help.dart';
-import 'package:torrid/pages/profile/detail_page/profile_preferences.dart';
+
 import 'package:torrid/pages/profile/profile_page.dart';
 import 'package:torrid/pages/profile/profile_detail_page.dart';
+import 'package:torrid/pages/profile/detail_page/profile_user.dart';
+import 'package:torrid/pages/profile/detail_page/profile_preferences.dart';
+import 'package:torrid/pages/profile/detail_page/profile_data.dart';
+import 'package:torrid/pages/profile/detail_page/profile_account.dart';
+import 'package:torrid/pages/profile/detail_page/profile_help.dart';
+import 'package:torrid/pages/profile/detail_page/profile_abount.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: "/home",
@@ -63,41 +64,42 @@ final GoRouter router = GoRouter(
       name: "profile",
       builder: (context, state) => ProfilePage(),
     ),
-    // 个人页的详细页
-    GoRoute(
-      path: "/profile_detail",
-      name: "profile_detail",
-      builder: (context, state) => ProfileDetailPage(),
+    // 个人二级页
+    ShellRoute(
+      builder: (context, state, child){
+        final params = state.extra as Map<String, dynamic>;
+        return ProfileDetailPage(title: params['title'], child: child);
+      },
       routes: [
         GoRoute(
-          path: "user",
+          path: "/profile_user",
           name: "profile_user",
           builder: (context, state) => ProfileUser(),
         ),
         GoRoute(
-          path: "preferences",
+          path: "/profile_preferences",
           name: "profile_preferences",
           builder: (context, state) => ProfilePreferences(),
         ),
         GoRoute(
-          path: "data",
+          path: "/profile_data",
           name: "profile_data",
           builder: (context, state) => ProfileData(),
         ),
         GoRoute(
-          path: "account",
+          path: "/profile_account",
           name: "profile_account",
           builder: (context, state) => ProfileAccount(),
         ),
         GoRoute(
-          path: "help",
+          path: "/profile_help",
           name: "profile_help",
           builder: (context, state) => ProfileHelp(),
         ),
         GoRoute(
-          path: "about",
+          path: "/profile_about",
           name: "profile_about",
-          builder: (context, state) => ProfileAbount(),
+          builder: (context, state) => ProfileAbout(),
         ),
       ],
     ),
