@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:torrid/components/profile/nav_info.dart';
+import 'package:torrid/components/profile/nav_tile.dart';
 
 class NavTileDatas {
   static List<NavInfo> get datas => [

@@ -28,7 +28,13 @@ class HiveService {
 
 
   // # 同步数据, 从pc请求数据覆盖本地.
-  // 同步booklet数据
+  static Future<void> syncDatas()async{
+    await syncBooklet();
+    await syncEssay();
+    await syncViewhub();
+  }
+  
+  // 同步booklet打卡
   static Future<void> syncBooklet() async {
     try {
       final response = await get(
@@ -41,7 +47,7 @@ class HiveService {
     }
   }
 
-  // 同步essay数据
+  // 同步essay随笔
   static Future<void> syncEssay() async {
     try {
       final response = await get(
@@ -53,9 +59,19 @@ class HiveService {
     }
   }
 
-
+  // 同步viewhub媒体阅读器
+  static Future<void> syncViewhub()async{
+    
+  }
 
   // # 更新数据, 本地数据上传到PC.
+  static Future<void> updateDatas()async{
+    await updateBooklet();
+    await updateEssay();
+    await updateViewhub();
+  }
+  
+  // 同步booklet打卡
   static Future<void> updateBooklet() async {
     try {
       final packedData = BookletHiveService.packUp();
@@ -70,8 +86,12 @@ class HiveService {
     }
   }
 
-  // 更新essay数据
+  // 更新essay随笔
   static Future<void> updateEssay()async{}
 
+  // 更新viewhub媒体阅读器
+  static Future<void> updateViewhub()async{
+    
+  }
   
 }
