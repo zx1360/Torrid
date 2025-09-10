@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:torrid/components/profile/nav_info.dart';
 import 'package:torrid/components/profile/nav_tile.dart';
 import 'package:torrid/components/profile/nav_tile_datas.dart';
 
@@ -245,8 +244,8 @@ class _ProfilePageState extends State<ProfilePage> {
               Navigator.pop(context);
               // 这里可以添加退出登录的逻辑
             },
-            child: const Text('确定'),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('确定'),
           ),
         ],
       ),

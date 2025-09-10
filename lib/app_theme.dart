@@ -199,14 +199,14 @@ class AppTheme {
       
       // 开关样式
       switchTheme: SwitchThemeData(
-        thumbColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return Colors.white;
           }
           return mediumTextColor;
         }),
-        trackColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return primaryColor;
           }
           return lightSurfaceColor;
@@ -215,25 +215,25 @@ class AppTheme {
       
       // 复选框样式
       checkboxTheme: CheckboxThemeData(
-        fillColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return primaryColor;
           }
           return null;
         }),
-        checkColor: MaterialStateProperty.all(Colors.white),
+        checkColor: WidgetStateProperty.all(Colors.white),
         side: BorderSide(color: mediumTextColor),
       ),
       
       // 单选按钮样式
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
             return primaryColor;
           }
           return null;
         }),
-        overlayColor: MaterialStateProperty.all(primaryColorLight.withOpacity(0.2)),
+        overlayColor: WidgetStateProperty.all(primaryColorLight.withOpacity(0.2)),
       ),
       
       // 进度指示器样式

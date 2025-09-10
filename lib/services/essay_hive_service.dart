@@ -84,7 +84,6 @@ class EssayHiveService {
         final essay_ = Essay.fromJson(essay);
         await _essayBox.put(essay_.id, essay_);
       }
-      print("4");
     }catch(err){
       throw Exception("同步essay出错: $err");
     }

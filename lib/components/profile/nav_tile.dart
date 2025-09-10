@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:torrid/components/profile/nav_info.dart';
+
+class NavInfo {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final String childRouteName;
+
+  NavInfo({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.childRouteName,
+  });
+}
 
 class NavTile extends StatelessWidget {
   final NavInfo info;
