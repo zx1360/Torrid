@@ -104,7 +104,7 @@ class EssayHiveService {
     }
   }
   // 上传相关图片
-  static Future<void> uploadImgs() async {
+  static List<String> getImgsPath()  {
     List<String> urls = [];
     _essayBox.values.toList().forEach((essay) {
       for (var img in essay.imgs) {
@@ -114,9 +114,6 @@ class EssayHiveService {
             urls.add(relativePath);
           }
     });
-
-    ImageUploader.uploadImages(urls, "http://192.168.5.114:4215/update/essay").catchError((error) {
-      print("上传出错.");
-    });
+    return urls;
   }
 }
