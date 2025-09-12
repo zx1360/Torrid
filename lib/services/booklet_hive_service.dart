@@ -11,7 +11,7 @@ import 'package:torrid/models/booklet/record.dart';
 import 'package:http/http.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:torrid/services/http_service.dart';
+import 'package:torrid/services/hive_service.dart';
 import 'package:torrid/services/io_service.dart';
 import 'package:torrid/util/util.dart';
 
@@ -305,11 +305,12 @@ class BookletHiveService {
       // 一并同步对应的task图片文件
       // TODO: 检查完全按预期结果验证.
       List<String> urls = [];
+      final url = await HiveService.getPcIp();
       _styleBox.values.toList().forEach((style) {
         style.tasks
             .where((task) => task.image.isNotEmpty && task.image != '')
             .forEach((task) {
-              urls.add("http://192.168.5.114:4215/${task.image}");
+              urls.add("http://$url:4215/${task.image}");
             });
       });
       if (urls.isNotEmpty) {
@@ -338,7 +339,7 @@ class BookletHiveService {
   }
 
   // 一并上传task图片
-  static Future<void> uploadImgs() async {
+  static List<String> getImgsPath() {
     List<String> urls = [];
     _styleBox.values.toList().forEach((style) {
       style.tasks
@@ -350,9 +351,6 @@ class BookletHiveService {
             urls.add(relativePath);
           });
     });
-
-    ImageUploader.uploadImages(urls, "http://192.168.5.114:4215/update/booklet_imgs").catchError((error) {
-      print("上传出错.");
-    });
+    return urls;
   }
 }

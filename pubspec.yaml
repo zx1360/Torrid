@@ -26,6 +26,8 @@ dependencies:
   go_router: ^16.1.0
   # 处理路径
   path: ^1.9.1
+  # 权限管理
+  permission_handler: ^12.0.1
 
   # ----网络----
   # http请求
@@ -39,6 +41,8 @@ dependencies:
   # markdown渲染
   markdown: ^7.3.0
   flutter_markdown_plus: ^1.0.5
+  # 排列容器
+  flutter_staggered_grid_view: ^0.7.0
 
   # ----媒体文件相关----
   # 视频播放
@@ -47,6 +51,8 @@ dependencies:
   image_picker: ^1.2.0
   # 图片压缩
   flutter_image_compress: ^2.4.0
+  # 查看图片
+  photo_view: ^0.15.0
   
 
 # 开发时插件-------:

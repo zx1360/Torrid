@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:torrid/pages/others/viewhub/hub_comic.dart';
+import 'package:torrid/pages/others/viewhub/comic/hub_comic_page.dart';
 
 class ViewhubPage extends StatelessWidget {
   const ViewhubPage({super.key});
@@ -7,7 +7,7 @@ class ViewhubPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Builder(builder: (context) => const HubComic()),
+      body: Builder(builder: (context) => const HubComicPage()),
     );
   }
 }

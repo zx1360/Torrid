@@ -5,9 +5,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:torrid/services/booklet_hive_service.dart';
 import 'package:torrid/services/essay_hive_service.dart';
+import 'package:torrid/services/http_service.dart';
 
 class HiveService {
   static Future<void> init() async {
@@ -25,21 +27,23 @@ class HiveService {
     await Directory(essayImgDir).create(recursive: true);
   }
 
-
+  static Future getPcIp() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("PC_IP");
+  }
 
   // # 同步数据, 从pc请求数据覆盖本地.
-  static Future<void> syncDatas()async{
+  static Future<void> syncDatas() async {
     await syncBooklet();
     await syncEssay();
     await syncViewhub();
   }
-  
+
   // 同步booklet打卡
   static Future<void> syncBooklet() async {
     try {
-      final response = await get(
-        Uri.parse("http://192.168.5.114:4215/sync/booklet"),
-      );
+      final pcIp = await getPcIp();
+      final response = await get(Uri.parse("http://$pcIp:4215/sync/booklet"));
       await BookletHiveService.syncData(jsonDecode(response.body));
     } catch (err) {
       // print(response);
@@ -50,9 +54,8 @@ class HiveService {
   // 同步essay随笔
   static Future<void> syncEssay() async {
     try {
-      final response = await get(
-        Uri.parse("http://192.168.5.114:4215/sync/essay"),
-      );
+      final pcIp = await getPcIp();
+      final response = await get(Uri.parse("http://$pcIp:4215/sync/essay"));
       await EssayHiveService.syncData(jsonDecode(response.body));
     } catch (err) {
       throw Exception("同步essay数据出错.$err\n");
@@ -60,38 +63,59 @@ class HiveService {
   }
 
   // 同步viewhub媒体阅读器
-  static Future<void> syncViewhub()async{
-    
-  }
+  static Future<void> syncViewhub() async {}
 
   // # 更新数据, 本地数据上传到PC.
-  static Future<void> updateDatas()async{
+  static Future<void> updateDatas() async {
     await updateBooklet();
     await updateEssay();
     await updateViewhub();
   }
-  
+
   // 同步booklet打卡
   static Future<void> updateBooklet() async {
     try {
       final packedData = BookletHiveService.packUp();
+      final pcIp = await getPcIp();
       await post(
-        Uri.parse("http://192.168.5.114:4215/update/booklet"),
+        Uri.parse("http://$pcIp:4215/update/booklet"),
         headers: {"Content-Type": "application/json"},
         body: packedData,
       );
-      await BookletHiveService.uploadImgs();
+      List<String> urls = BookletHiveService.getImgsPath();
+      ImageUploader.uploadImages(
+        urls,
+        "http://$pcIp:4215/update/booklet_imgs",
+      ).catchError((error) {
+        print("上传出错.");
+      });
     } catch (err) {
       throw Exception("同步booklet数据出错.\n$err");
     }
   }
 
   // 更新essay随笔
-  static Future<void> updateEssay()async{}
+  static Future<void> updateEssay() async {
+    try {
+      final packedData = EssayHiveService.packUp();
+      final pcIp = await getPcIp();
+      await post(
+        Uri.parse("http://$pcIp:4215/update/essay"),
+        headers: {"Content-Type": "application/json"},
+        body: packedData,
+      );
+      List<String> urls = EssayHiveService.getImgsPath();
+      ImageUploader.uploadImages(
+        urls,
+        "http://$pcIp:4215/update/essay_imgs",
+      ).catchError((error) {
+        print("上传出错.");
+      });
+    } catch (err) {
+      throw Exception("同步booklet数据出错.\n$err");
+    }
+  }
 
   // 更新viewhub媒体阅读器
-  static Future<void> updateViewhub()async{
-    
-  }
-  
+  static Future<void> updateViewhub() async {}
 }
