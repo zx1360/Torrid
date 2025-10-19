@@ -1,28 +1,27 @@
-import 'dart:io';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:torrid/services/debug/logging_service.dart';
-import 'package:torrid/services/io/io_service.dart';
-import 'package:torrid/providers/api_client/apiclient_handler.dart';
-import 'package:torrid/features/essay/services/essay_hive_service.dart';
+part 'sync_service.g.dart';
 
-class EssayService {
-  // 同步essay数据到本地
-  static Future<void> syncEssay() async {
-    try {
-      final resp = await ApiclientHandler.fetch(path: "/sync/essay");
+@riverpod
+Future<void> syncBooklet()async{
+  try {
+      final resp = await ApiclientHandler.fetch(
+        path: "/sync/booklet",
+        status: status,
+      );
       if (resp == null || resp.statusCode != 200) {
-        AppLogger().error("syncEssay失败");
+        AppLogger().error("syncBooklet出错");
       } else {
-        await EssayHiveService.syncData(resp.data);
+        await BookletHiveService.syncData(resp.data);
       }
     } catch (e) {
-      throw Exception("syncEssay出错: $e");
+      throw Exception("syncBooklet出错: $e");
     }
-  }
+}
 
-  // 备份essay数据到pc
-  static Future<void> backupEssay() async {
-    try {
+@riverpod
+Future<void> backupEssay()async{
+  try {
       final data = EssayHiveService.packUp();
       // 获取外部存储目录
       final externalDir = await IoService.externalStorageDir;
@@ -43,5 +42,4 @@ class EssayService {
     } catch (e) {
       throw Exception("backupEssay出错: $e");
     }
-  }
 }
