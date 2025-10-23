@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'notifier_provider.dart';
+part of 'content_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$todoServiceHash() => r'e27ba6b77daf62a9f8eecf833f2a14ac8e719ab9';
+String _$contentHash() => r'cf4e0492a498488cae565fba5a482814f3bbe238';
 
-/// See also [TodoService].
-@ProviderFor(TodoService)
-final todoServiceProvider =
-    AutoDisposeNotifierProvider<TodoService, Cashier>.internal(
-  TodoService.new,
-  name: r'todoServiceProvider',
+/// See also [Content].
+@ProviderFor(Content)
+final contentProvider =
+    AutoDisposeNotifierProvider<Content, TaskList?>.internal(
+  Content.new,
+  name: r'contentProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$todoServiceHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$contentHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$TodoService = AutoDisposeNotifier<Cashier>;
+typedef _$Content = AutoDisposeNotifier<TaskList?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
