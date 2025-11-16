@@ -1,25 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'server_conn_provider.dart';
+part of 'content_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$serverConnectorHash() => r'7450e604c30096ee9430610d2d7209fad37fd33e';
+String _$contentServiceHash() => r'a7de20749ea4eaa47759ad2a6db9767e67ade86d';
 
-/// See also [ServerConnector].
-@ProviderFor(ServerConnector)
-final serverConnectorProvider = NotifierProvider<ServerConnector, Map>.internal(
-  ServerConnector.new,
-  name: r'serverConnectorProvider',
+/// See also [ContentService].
+@ProviderFor(ContentService)
+final contentServiceProvider =
+    AutoDisposeNotifierProvider<ContentService, void>.internal(
+  ContentService.new,
+  name: r'contentServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$serverConnectorHash,
+      : _$contentServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ServerConnector = Notifier<Map>;
+typedef _$ContentService = AutoDisposeNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

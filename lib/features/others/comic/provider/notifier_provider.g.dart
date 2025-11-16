@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'essay_notifier_provider.dart';
+part of 'notifier_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$essayServiceHash() => r'acede93da343378f0b97fe2d197661d83441550c';
+String _$comicServiceHash() => r'bb49832491a9e4a809b96b45b7e0d7f74e38a0eb';
 
-/// See also [EssayService].
-@ProviderFor(EssayService)
-final essayServiceProvider =
-    AutoDisposeNotifierProvider<EssayService, Cashier>.internal(
-  EssayService.new,
-  name: r'essayServiceProvider',
+/// See also [ComicService].
+@ProviderFor(ComicService)
+final comicServiceProvider =
+    AutoDisposeNotifierProvider<ComicService, void>.internal(
+  ComicService.new,
+  name: r'comicServiceProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$essayServiceHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$comicServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$EssayService = AutoDisposeNotifier<Cashier>;
+typedef _$ComicService = AutoDisposeNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
