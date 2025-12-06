@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:torrid/features/others/comic/models/comic_info.dart';
+import 'package:torrid/features/others/comic/provider/online_status_provider.dart';
 import 'package:torrid/features/others/comic/provider/status_provider.dart';
 import 'package:torrid/features/others/comic/services/comic_servic.dart';
 import 'package:torrid/features/others/comic/widgets/detail_page/comic_header.dart';
@@ -9,19 +10,22 @@ import 'package:torrid/features/others/comic/widgets/detail_page/row_info_widget
 import 'comic_read_flip.dart';
 import 'comic_read_scroll.dart';
 
-// TODO: 加入'删除'选项, 从本地删除.  
-class ComicDetailPage extends ConsumerWidget {
+// TODO: 加入'删除'选项, 从本地删除.
+class OnlineComicDetailPage extends ConsumerWidget {
   final ComicInfo comicInfo;
-  const ComicDetailPage({super.key, required this.comicInfo});
+  const OnlineComicDetailPage({super.key, required this.comicInfo});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final chapters = ref.watch(
-      chaptersWithComicIdProvider(comicId: comicInfo.id),
+    final chaptersAsync = ref.watch(
+      onlineChaptersWithComicIdProvider(comicId: comicInfo.id),
     );
     final comicPref = ref.watch(
       comicPrefWithComicIdProvider(comicId: comicInfo.id),
     );
+
+    // return Placeholder();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(comicInfo.comicName, overflow: TextOverflow.ellipsis),
@@ -41,9 +45,9 @@ class ComicDetailPage extends ConsumerWidget {
               ),
             ),
           ),
-
-          if (chapters.isNotEmpty)
-            SliverGrid(
+          // 在线章节数据
+          chaptersAsync.when(
+            data: (chapters) => SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 childAspectRatio: 1.5,
@@ -131,16 +135,9 @@ class ComicDetailPage extends ConsumerWidget {
                 );
               }, childCount: chapters.length),
             ),
-
-          if (chapters.isEmpty)
-            const SliverToBoxAdapter(
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text('未找到任何章节'),
-                ),
-              ),
-            ),
+            loading: () => SliverToBoxAdapter(child: const Center(child: CircularProgressIndicator()),),
+            error: (error, stack) => SliverToBoxAdapter(child: Center(child: Text('错误：$error')),),
+          ),
         ],
       ),
     );
